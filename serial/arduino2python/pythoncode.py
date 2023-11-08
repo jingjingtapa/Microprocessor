@@ -1,6 +1,40 @@
-import serial #시리얼 모듈 설치/시리얼 통신 설정
+import serial
+import cv2
+import time
 
-board = serial.Serial('COM3',9600)
-y = float(arduino.readline().decode()[:-2]) #byte단위로 들어온 데이터를 변환,
-                                            #뒤에 항상 /r/n이 붙기 때문에 -2번째까지만 읽기
-                                            #float로 정수형 처리
+board = serial.Serial('COM3', 115200)
+
+while True:
+    
+    dis = board.readline().decode()    
+    force = board.readline().decode()
+    
+    try:
+
+        print(float(dis))
+        
+        print(float(force))
+        
+        if float(dis) >= 150:
+
+            print(float(dis), 'awake')
+
+            print(float(force), 'awake')
+
+        
+        else:
+
+            print(float(dis))
+        
+    except ValueError:
+        
+        print("Invalid data")
+    
+##    key = cv2.waitKey(1) & 0xFF
+##
+##    if key == ord('q'):
+##        break
+
+board.close()
+
+cv2.destroyAllWindows()
