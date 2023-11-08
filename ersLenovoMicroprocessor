@@ -1,0 +1,191 @@
+[33mcommit 83873a598626d08094d20b5a0ebd084eefcd9bef[m[33m ([m[1;36mHEAD -> [m[1;32mmain2[m[33m, [m[1;31morigin/main2[m[33m)[m
+Author: jingjingtapa <jingjingtapa@naver.com>
+Date:   Wed Nov 8 17:32:01 2023 +0900
+
+    changed first and second file
+
+[33mcommit 72edb631724ecf2ba4f207deeac2aa13381c7fbb[m
+Author: jingjingtapa <jingjingtapa@naver.com>
+Date:   Wed Nov 8 16:59:26 2023 +0900
+
+    This is 1st commit written in main2 branch
+
+[33mcommit cfb1ae43f37e3ee503b8cb7efccf85b36bb54e82[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 15:29:24 2023 +0900
+
+    Update and rename python code.py to pythoncode.py
+
+[33mcommit 8a82b59e63c16bae08cf7b4c350c0af1724da989[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 15:29:16 2023 +0900
+
+    Rename arduino code.ino to arduinocode.ino
+
+[33mcommit 124328cb2cfa6440c18fa94856187cc002bedcbd[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 15:29:05 2023 +0900
+
+    Update and rename python code.py to pythoncode.py
+
+[33mcommit 2009a2c86a117ca2217bd7aa5183d129e5cf80a1[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 15:28:56 2023 +0900
+
+    Rename arduino code.ino to arduinocode.ino
+
+[33mcommit 17f5ac761abcf51f2d9b886a94a2673f53ba679d[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 13:00:17 2023 +0900
+
+    Rename FSR402.ino to FSR402.ino
+
+[33mcommit d1d9a3a8d511e2a5db7cec365a2edc66bf0b36ec[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:17:53 2023 +0900
+
+    Create MAX30102.ino
+
+[33mcommit f19a4f0591ef007082009fc1e88bb4ba50ac612e[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:14:57 2023 +0900
+
+    Create ENS160.ino
+
+[33mcommit 6271032ae14ea19a797213f02fa360dc6444566f[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:11:28 2023 +0900
+
+    Create FSR402.ino
+
+[33mcommit 9bcf0e3a2381b50cc05c9836d5750e3d8ab6c866[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:07:41 2023 +0900
+
+    Rename V2LX50.ino to VL53L0X.ino
+
+[33mcommit 6f56c4ce24a45ed0fe2c65f38d41b9c281a3c43c[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:06:07 2023 +0900
+
+    Create V2LX50.ino
+
+[33mcommit 464207eda50688a3bdadf64e996bbbfb2bb0c1a2[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:04:14 2023 +0900
+
+    Update and rename python code to python code.py
+
+[33mcommit badda5864c38c0a138b36306e109c6a7c390a63e[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:04:07 2023 +0900
+
+    Rename arduino code to arduino code.ino
+
+[33mcommit f53083d9a6d9fad754f0bb83ee1a3209b9117841[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:03:56 2023 +0900
+
+    Rename arduino code to arduino code.ino
+
+[33mcommit 606fc848c60ac35f4f887acded9e35f4c18f09bb[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:03:47 2023 +0900
+
+    Update and rename python code to python code.py
+
+[33mcommit 122a6b0eb5ca440b62fc9ea113ba98e1620613d5[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:03:33 2023 +0900
+
+    Update and rename EAR.py to EAR/EAR.py
+
+[33mcommit 0130493735994d2b9e2e7b1b6dc6bc34339b3fb8[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:03:01 2023 +0900
+
+    Update and rename arduinotopython to serial/arduino2python/python code
+
+[33mcommit 27f0a16105213785fc6304b109cb394c78f19f74[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:02:32 2023 +0900
+
+    Update and rename pythontoarduino.py to serial/python2arduino/python code
+
+[33mcommit 5f5ab4fe7def134ab7e52f69a6b31ed2a438b3c1[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:01:50 2023 +0900
+
+    Rename serial/arduinotopython.ino to serial/arduino2python/arduino code
+
+[33mcommit a12c31605d3c6471d915cf6f88a4d5d7e6aa432c[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:01:15 2023 +0900
+
+    Rename arduino to arduino code
+
+[33mcommit 521ac8c1cd62f0e36c35a339f338a170b6866c21[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 11:00:12 2023 +0900
+
+    Rename pythontoarduino/pythontoarduino.ino to serial/arduino2py/arduino
+
+[33mcommit 015bf545916d29291205ac920e33ba264c96b07f[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 09:18:38 2023 +0900
+
+    Update and rename serial(arduino to python).py to arduinotopython
+
+[33mcommit a2053004fc03f07f0091779dffebaac75e7ee080[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Wed Nov 8 09:18:17 2023 +0900
+
+    Update and rename ee.py to EAR.py
+
+[33mcommit 2adc7ada98347edb1b7736aa0230f3ad11098b50[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Tue Nov 7 18:58:12 2023 +0900
+
+    Add files via upload
+
+[33mcommit ce22b7fc7ee41838f39e45b4f386a20747a4a612[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Tue Nov 7 18:56:34 2023 +0900
+
+    Add files via upload
+
+[33mcommit efa9e3abb21bf152e1767478f0cec0807398a6dc[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Tue Nov 7 18:44:47 2023 +0900
+
+    Rename serial.ino to arduinotopython.ino
+
+[33mcommit 91b4b24b4d0a79fe0ddb0b71c2b3f31de71fc8cd[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Tue Nov 7 18:43:00 2023 +0900
+
+    Delete jingjingtapa
+
+[33mcommit f5e2e470904cca941b47ce53fb64ca68cac34ca4[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Tue Nov 7 18:40:26 2023 +0900
+
+    파이썬에서 시리얼모니터 관찰하기(아두이노코드)
+
+[33mcommit 51c3a7f3f2b87518ed51c8674c39b470181ffb53[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Tue Nov 7 18:38:58 2023 +0900
+
+    아두이노에서 시리얼 모니터 관찰하기
+
+[33mcommit 99994786434b69cd67c83150888cd96e46dbb7cb[m
+Author: jingjingtapa <150122081+jingjingtapa@users.noreply.github.com>
+Date:   Tue Nov 7 18:22:35 2023 +0900
+
+    Create jingjingtapa
+
+[33mcommit 5d60a8c2143fe10683a372a684b7dfb6a5dd5f42[m
+Author: JiyongBoo <150123902+JiyongBoo@users.noreply.github.com>
+Date:   Tue Nov 7 18:12:58 2023 +0900
+
+    Add files via upload
