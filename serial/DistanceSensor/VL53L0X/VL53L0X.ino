@@ -1,14 +1,32 @@
 #include "Adafruit_VL53L0X.h"
 
 Adafruit_VL53L0X lox = Adafruit_VL53L0X();
-int speakerPin = 8;
+
+////////////// 센서 핀 위치 설정 //////////////////
+
+       /// INPUT 센서
+
 int forcepin = A1;
+
+
+       /// OUTPUT 장치
+
+int BACKLIGHT = 8;  ///// 후미등 input
+int speakerPin = 9; ///// 부저스피커 input
 int tones[]={261,277,311}; // 연주할 톤의 진동수.
-int input_data;
+int delays = 30;
+////////////// 졸음 판단 기준 변수들 /////////////////
+
+int HEAD = 130;  
+int GRIP = 100;
+int EYE;
+
+///////////////////////////////////////////////////////
 
 void setup() {
   Serial.begin(115200);
   pinMode(speakerPin,OUTPUT);
+  pinMode(BACKLIGHT,OUTPUT);
   
   // wait until serial port opens for native USB devices
   while (! Serial) {
@@ -16,36 +34,43 @@ void setup() {
   }
   
   // Serial.println("Adafruit VL53L0X ");
-  // if (!lox.begin()) {
-  //   Serial.println(F("Failed to boot VL53L0X"));
-  //   while(1);
-  // }
-  // // power 
+  if (!lox.begin()) {
+     Serial.println(F("Failed to boot VL53L0X"));
+     while(1);
+   }
+   // power 
   // Serial.println(F("Start checking Distance...")); 
 }
 
 
 void loop() {
+
   VL53L0X_RangingMeasurementData_t measure;
     
-  //Serial.print("Reading a measurement... ");
   lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
-  int val = analogRead(forcepin);
+  
+  int force = analogRead(forcepin); // 압전센서의 측정값
   
   if (measure.RangeStatus != 4) {  // phase failures have incorrect data
-    //Serial.print("Distance (mm): "); 
-    Serial.println(measure.RangeMilliMeter);
-    Serial.println(analogRead(forcepin));
     
-    // if (measure.RangeMilliMeter >= 150 & val <= 40 ) {
-      
-    //   // for(int i=0; i < sizeof(tones); i++)
-    //   //   tone(speakerPin,tones[i]);
-    //   //   delay(100);
-    //   //   noTone(speakerPin);
-    //   //   delay(500);
-    // }
+    if (measure.RangeMilliMeter >= HEAD & force <= GRIP ) {
 
+      Serial.print("distance : "); Serial.print(measure.RangeMilliMeter); Serial.print(", force : "); Serial.print(force); Serial.println(" - WAKE UP");
+      digitalWrite(BACKLIGHT,HIGH);
+      delay(delays);
+      digitalWrite(BACKLIGHT,LOW);
+      delay(delays);
+    ////////////// 부저 스피커 출력구문
+    //  for(int i=0; i < sizeof(tones); i++)
+    //    tone(speakerPin,tones[i]);
+    //    delay(100);
+    //    noTone(speakerPin);
+    //    delay(500);
+    }
+    else{
+      Serial.print("distance : "); Serial.print(measure.RangeMilliMeter); Serial.print(", force : "); Serial.println(force);
+      delay(delays);
+    }
   }
     
   delay(100);
