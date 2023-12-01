@@ -21,7 +21,7 @@ def eye_aspect_ratio(eye):
     return ear
 
 # 눈 감음 기준값 설정
-EYE_AR_THRESH = 0.2
+EYE_AR_THRESH = 0.18
 EYE_AR_CONSEC_FRAMES = 30
 COUNTER = 0
 TOTAL = 0
@@ -37,19 +37,29 @@ predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
 # 카메라 불러오기
 print("[INFO] starting video stream thread...")
-vs = VideoStream(src=1).start()
+vs = VideoStream(src=0).start()
 time.sleep(1.0)
 
-ser = serial.Serial('COM5', 9600, timeout=1)
-time.sleep(2)
+inputCOM = 'COM7'
+inputbaudrate = 115200
 
+outputCOM = 'COM8'
+outputbaudrate = 115200
+
+ard = serial.Serial(outputCOM, outputbaudrate)
+ser = serial.Serial(inputCOM, inputbaudrate, timeout=1)
+time.sleep(2)
 while True:
     get_data = ser.readline()
     if get_data:
         get_data = get_data.decode()
-        num = int(get_data)
-        print(num)
-        if num:
+        list = get_data.split('/')
+        distance = int(list[0])
+        force = int(list[1])
+        CO2 = int(list[2])
+        brightness = int(list[3])
+        print('distnace:',distance,'force:',force,'CO2:',CO2,'밝기:',brightness)
+        if (brightness < 700):
             frame = vs.read()
             frame = imutils.resize(frame, width=450)
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -82,6 +92,15 @@ while True:
                             cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
 
+                if TOTAL > 30 and TOTAL < 100:
+                    ard.write(b'1')
+                else:
+                    ard.write(b'o')
+
+                
+                    
+
+
 
                         
 
@@ -93,3 +112,7 @@ while True:
 
 cv2.destroyAllWindows()
 vs.stop()
+
+
+
+        
