@@ -10,7 +10,7 @@ DFRobot_ENS160_I2C ENS160(&Wire, /*I2CAddr*/0x53);
 ////////////// 아날로그 핀 위치 설정 //////////////////
 int forcepin = A1; // 압전센서
 int jodopin = A0; // 조도센서
-int delays = 50; // delay 조절
+int delays = 30; // delay 조절
 //////////////////////////////////////////////////
 
 void setup() {
