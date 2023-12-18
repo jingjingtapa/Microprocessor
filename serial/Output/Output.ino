@@ -1,9 +1,11 @@
+#include <Stepper.h>
+const int stepsPerRevolution = 2048;
 int BUZZER = 6;
 int LED = 7;
-//int MOTOR = 10;
+
 int sleep;
 int tones[]={261,277,311};
-//int CO2;
+Stepper myStepper(stepsPerRevolution,11,9,10,8);
 
 void setup() {
   // put your setup code here, to run once:
@@ -12,7 +14,7 @@ void setup() {
   pinMode(BUZZER,OUTPUT);
   //pinMode(MOTOR,OUTPUT);
   pinMode(LED,OUTPUT);
-
+  myStepper.setSpeed(14);
 }
 
 void loop() {
@@ -29,7 +31,18 @@ void loop() {
     else {
       digitalWrite(LED,LOW);
       noTone(BUZZER);
-    } 
+    }
+  }
+  if(ECO2 value >=300){
+    for (int i = 0; i < 3; ++i) {
+      myStepper.step(-stepsPerRevolution);
+      delay(500);
+    }
+  }
+}
+
+
+
 
     
 
