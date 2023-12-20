@@ -1,0 +1,61 @@
+#include <Stepper.h>
+#include <Adafruit_NeoPixel.h>
+#define LED_COUNT 15
+#define BRIGHTNESS 255
+
+int BUZZER = 4;
+int LED_PIN1=5;
+int LED_PIN2=6;
+int sleep;
+int tones[]={261,277,311};
+
+Adafruit_NeoPixel strip1(LED_COUNT, LED_PIN1, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip2(LED_COUNT, LED_PIN2, NEO_GRB + NEO_KHZ800);
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+  strip1.begin();
+  strip1.setBrightness(BRIGHTNESS);
+  strip1.show();
+
+  pinMode(BUZZER,OUTPUT);
+  //pinMode(MOTOR,OUTPUT);
+  //pinMode(LED,OUTPUT);
+}
+
+void loop() {
+  int color_r = 255;  // RED
+  int color_g = 255;    // GREEN
+  int color_b = 10;  // BLUE
+  while (Serial.available()){
+    char c = Serial.read();
+    Serial.println(c);
+    if(c == '1'){
+      for (int i = 0; i < LED_COUNT; i++) {
+        strip1.setPixelColor(i, 180, 180, 180);
+      }
+      strip1.show();
+      for (int i = 0; i < LED_COUNT; i++) {
+        strip2.setPixelColor(i, 180, 180, 180);
+      }
+      strip2.show();
+      tone(BUZZER,tones[0]);
+      }
+
+    }
+    
+    else {
+      //digitalWrite(LED_PIN,LOW);
+      noTone(BUZZER);
+      for (int i = 0; i < LED_COUNT; i++) {
+        strip1.setPixelColor(i, 0, 0, 0);
+      }
+      strip1.show();
+      for (int i = 0; i < LED_COUNT; i++) {
+        strip2.setPixelColor(i, 0, 0, 0);
+      }
+      strip2.show();
+    }
+  }
+}
