@@ -1,8 +1,3 @@
-# 눈을 30프레임 동안 감고 있으면 TOTAL +10
-# TOTAL이 10 이상일 때(눈을 감고 있다고 판단된 때,
-# 센서로 측정한 값을 logistic 회귀 방법으로 졸음 판단  
-# 졸음이라 판단되면 OUTPUT 아두이노에 1을 송신
-# 졸음이 아니라 판단되면 OUTPUT 아두이노에 0을 송신하고, TOTAL 값을 0으로 리셋
 
 from scipy.spatial import distance as dist
 from imutils.video import FileVideoStream
@@ -35,6 +30,7 @@ EYE_AR_THRESH = 0.18
 EYE_AR_CONSEC_FRAMES = 30
 COUNTER = 0
 TOTAL = 0
+earsum = 0
 
 # 안면 인식 기본 설정
 print("[INFO] loading facial landmark predictor...")
@@ -47,7 +43,7 @@ predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
 # 카메라 불러오기
 print("[INFO] starting video stream thread...")
-vs = VideoStream(src=0).start()
+vs = VideoStream(src=1).start()
 time.sleep(1.0)
 
 # 카메라로 받은 영상에서 EAR 값 게산 함수
@@ -70,7 +66,7 @@ def VSread(frame):
             cv2.drawContours (frame, [leftEyeHull], -1, (0, 255, 0), 1) 
             cv2.drawContours (frame, [rightEyeHull], -1, (0, 255, 0), 1)
     else: #눈이 감지 안될때
-        ear = -1
+        ear = 0
     return ear
 
 # 시리얼 통신 기본 설정
@@ -82,16 +78,22 @@ outputbaudrate = 115200
 
 ard = serial.Serial(outputCOM, outputbaudrate)
 ser = serial.Serial(inputCOM, inputbaudrate, timeout=1)
-time.sleep(2.0)
+time.sleep(1.0)
 
 
 # logistic 회귀 방법
 
-drivers = pd.read_csv('./drivertrain.csv')
+drivers1 = pd.read_csv('./drivertrain.csv') # 낮, 눈 인식
+drivers2 = pd.read_csv('./drivertrain.csv') # 낮, 눈 인식x
+drivers3 = pd.read_csv('./drivertrain.csv') # 밤
 
-def decision(Distance, Force, drivers):
-    features = drivers[['Distance', 'Force']]
-    sleep = drivers['Sleep']  # Sleep 열 선택
+
+
+
+
+def decision(Distance, Force, Drivers):
+    features = Drivers[['Distance', 'Force']]
+    sleep = Drivers['Sleep']  # Sleep 열 선택
     train_features, test_features, train_labels, test_labels = train_test_split(features, sleep, test_size=0.2, random_state=42)
     train_features = train_features.values
     test_features = test_features.values    
@@ -117,32 +119,38 @@ while True:
         CO2 = int(list[2])
         brightness = int(list[3])
         print('distnace:',distance,'force:',force,'CO2:',CO2,'밝기:',brightness)
-        if (brightness < 1000):
+        
+        # 낮일 때
+        if (brightness < 800):
             frame = vs.read()
             frame = imutils.resize(frame, width=450)
             ear = VSread(frame)
+
+            # 눈이 인식되고 눈을 2초 이상 감고 있을때, TOTAL +10  
             if ear > 0 and ear < EYE_AR_THRESH:
                 COUNTER += 1
                 if COUNTER >= EYE_AR_CONSEC_FRAMES:
                     TOTAL += 10
                     COUNTER=0
-            else:
+
+            # 눈이 인식되고 눈을 뜨고 있을때(+2초 이하로 눈을 깜빡일때)       
+            elif (ear > 0 and ear >= EYE_AR_THRESH):
                 COUNTER = 0
                 TOTAL = 0
 
 
 
-            cv2.putText(frame, "Blinks: {}".format(TOTAL), (10, 30),
-                       cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+           # cv2.putText(frame, "Blinks: {}".format(TOTAL), (10, 30),
+           #            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
             cv2.putText(frame, "EAR: {:.2f}".format(ear), (300, 30),
                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
             cv2.imshow("Frame", frame)
             key = cv2.waitKey(1) & 0xFF
             
 
-
+            # 낮 상황 1
             if TOTAL >= 10:
-                result = decision(distance, force, drivers)
+                result = decision(distance, force, drivers1)
                 if result == 1:
                     ard.write(b'1')
                     print('sleep warning')
@@ -153,8 +161,50 @@ while True:
                     print('not sleep')
 
             else:
-                ard.write(b'o')
+                ard.write(b'0')
+
+            if key == ord("q"):
+                break
+                
+        
+        # 밤일 때
+        if (brightness >= 800):
+            frame = vs.read()
+            frame = imutils.resize(frame, width=450)
+            ear = VSread(frame)
+            result = decision(distance, force, drivers2)
+
+            cv2.putText(frame, "EAR: {:.2f}".format(ear), (300, 30),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+            cv2.imshow("Frame", frame)
+            key = cv2.waitKey(1) & 0xFF 
+
+            if (result==1):
+                COUNTER += 1
+                if COUNTER > 10:
+                    ard.write(b'2')
+                    print('turn on led')
+                    earsum += ear
+                    if COUNTER > 30:
+                        if ear > 0 and (earsum/COUNTER) < EYE_AR_THRESH:
+                            ard.write(b'3')
+                            print('sleep warning')
+                        else:
+                            earsum=0
+                            COUNTER = 0
+                            ard.write(b'4')
+                            print('not sleep')
+                    
+            else :
+                COUNTER -= 1
+                if COUNTER < 0:
+                    COUNTER = 0
+                ard.write(b'0')
+                                            
             
+
+            
+        
             if key == ord("q"):
                 break
 
