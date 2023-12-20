@@ -83,16 +83,15 @@ time.sleep(1.0)
 
 # logistic 회귀 방법
 
-drivers1 = pd.read_csv('./drivertrain.csv') # 낮, 눈 인식
-drivers2 = pd.read_csv('./drivertrain.csv') # 낮, 눈 인식x
-drivers3 = pd.read_csv('./drivertrain.csv') # 밤
+drivers1 = pd.read_csv('./drivertrain_day.csv') # 낮
+drivers2 = pd.read_csv('./drivertrain_night.csv') # 밤
 
 
 
 
 
-def decision(Distance, Force, Drivers):
-    features = Drivers[['Distance', 'Force']]
+def decision(Distance, Force,CO2, Drivers):
+    features = Drivers[['Distance', 'Force' ,'CO2']]
     sleep = Drivers['Sleep']  # Sleep 열 선택
     train_features, test_features, train_labels, test_labels = train_test_split(features, sleep, test_size=0.2, random_state=42)
     train_features = train_features.values
@@ -102,7 +101,7 @@ def decision(Distance, Force, Drivers):
     test_features = scaler.transform(test_features)
     model = LogisticRegression()   
     model.fit(train_features, train_labels)
-    sample_driver = np.array([[Distance, Force]])  # 샘플 데이터를 2차원 배열로 변환  
+    sample_driver = np.array([[Distance, Force,CO2]])  # 샘플 데이터를 2차원 배열로 변환  
     sample_driver = scaler.transform(sample_driver)
     predict = model.predict(sample_driver)  
     return predict[0]  # 결과값 반환
@@ -150,7 +149,7 @@ while True:
 
             # 낮 상황 1
             if TOTAL >= 10:
-                result = decision(distance, force, drivers1)
+                result = decision(distance, force, CO2,drivers1)
                 if result == 1:
                     ard.write(b'1')
                     print('sleep warning')
@@ -172,7 +171,7 @@ while True:
             frame = vs.read()
             frame = imutils.resize(frame, width=450)
             ear = VSread(frame)
-            result = decision(distance, force, drivers2)
+            result = decision(distance, force, CO2, drivers2)
 
             cv2.putText(frame, "EAR: {:.2f}".format(ear), (300, 30),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
@@ -194,6 +193,7 @@ while True:
                             COUNTER = 0
                             ard.write(b'4')
                             print('not sleep')
+                            time.sleep(10.0)
                     
             else :
                 COUNTER -= 1
