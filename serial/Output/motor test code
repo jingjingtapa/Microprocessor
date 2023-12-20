@@ -1,0 +1,26 @@
+#include <Stepper.h>
+const int stepsPerRevolution = 512;
+Stepper myStepper(stepsPerRevolution,11,9,10,8);
+
+void setup() {
+  Serial.begin(115200);
+  myStepper.setSpeed(60);
+}
+
+void loop() {
+  while (Serial.available()){
+    char c = Serial.read();
+    Serial.println(c);
+    if(c == '1'){
+      
+      myStepper.step(-stepsPerRevolution);
+      
+      }
+    if(c == '2'){
+      
+      myStepper.step(stepsPerRevolution);
+      
+      }
+    
+    }
+  }
