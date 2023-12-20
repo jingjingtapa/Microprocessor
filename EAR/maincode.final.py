@@ -25,12 +25,13 @@ def eye_aspect_ratio(eye):
     ear = (A+B) / (2.0 * C)
     return ear
 
-# 눈 감음 기준값 설정
+# 눈 감음 기준값 설정/변수 설정
 EYE_AR_THRESH = 0.18
 EYE_AR_CONSEC_FRAMES = 30
 COUNTER = 0
 TOTAL = 0
 earsum = 0
+window = 1
 
 # 안면 인식 기본 설정
 print("[INFO] loading facial landmark predictor...")
@@ -137,6 +138,12 @@ while True:
                 COUNTER = 0
                 TOTAL = 0
 
+            elif  ear == 0 and distance < 25:
+                COUNTER += 1
+                if COUNTER >= EYE_AR_CONSEC_FRAMES:
+                    TOTAL += 10
+                    COUNTER=0
+
 
 
            # cv2.putText(frame, "Blinks: {}".format(TOTAL), (10, 30),
@@ -153,6 +160,10 @@ while True:
                 if result == 1:
                     ard.write(b'1')
                     print('sleep warning')
+                    if CO2 > 500 and window == 1 :
+                        ard.write(b'o')
+                        window = 0
+                        
                     
                 else:
                     TOTAL = 0
@@ -161,6 +172,11 @@ while True:
 
             else:
                 ard.write(b'0')
+                print('send 0')
+                if window == 0:
+                    ard.write(b'c')
+                    window = 1
+                    print('close the window')
 
             if key == ord("q"):
                 break
@@ -188,18 +204,26 @@ while True:
                         if ear > 0 and (earsum/COUNTER) < EYE_AR_THRESH:
                             ard.write(b'3')
                             print('sleep warning')
+                            if CO2 > 500 and window == 1 :
+                                ard.write(b'o')
+                                window = 0
+                        
+                            
                         else:
                             earsum=0
                             COUNTER = 0
                             ard.write(b'4')
                             print('not sleep')
-                            time.sleep(10.0)
+                            time.sleep(3.5)
                     
             else :
                 COUNTER -= 1
                 if COUNTER < 0:
                     COUNTER = 0
                 ard.write(b'0')
+                if window == 0:
+                    ard.write(b'c')
+                    window = 1
                                             
             
 
