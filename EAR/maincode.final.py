@@ -138,7 +138,8 @@ while True:
                 COUNTER = 0
                 TOTAL = 0
 
-            elif  ear == 0 and distance < 25:
+            # 고개를 뒤로 젖혀 자서 눈이 인식이 안될 때
+            elif  ear == 0 and distance < 35:
                 COUNTER += 1
                 if COUNTER >= EYE_AR_CONSEC_FRAMES:
                     TOTAL += 10
@@ -154,7 +155,7 @@ while True:
             key = cv2.waitKey(1) & 0xFF
             
 
-            # 낮 상황 1
+            
             if TOTAL >= 10:
                 result = decision(distance, force, CO2,drivers1)
                 if result == 1:
