@@ -11,11 +11,14 @@ void loop() {
   while (Serial.available()){
     char c = Serial.read();
     Serial.println(c);
+
+  // 창문 열림
     if(c == '1'){
       
       myStepper.step(-stepsPerRevolution);
       
       }
+  // 창문 닫힘
     if(c == '2'){
       
       myStepper.step(stepsPerRevolution);
